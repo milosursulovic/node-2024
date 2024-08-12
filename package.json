@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node --env-file=.env server.js",
-    "dev": "nodemon --env-file=.env server.js"
+    "dev": "nodemon --env-file=.env server.js",
+    "start_api": "node --env-file=.env api.js",
+    "dev_api": "nodemon --env-file=.env api.js"
   },
   "keywords": [],
   "author": "",
