@@ -36,6 +36,20 @@ const getUserByIdHandler = (req, res) => {
   res.end();
 };
 
+const createUserHandler = (req, res) => {
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    const newUser = JSON.parse(body);
+    users.push(newUser);
+    res.statusCode = 201;
+    res.write(JSON.stringify(newUser));
+    res.end();
+  });
+};
+
 const notFoundHandler = (req, res) => {
   res.statusCode = 404;
   res.write(JSON.stringify({ message: "Route not found" }));
@@ -52,6 +66,8 @@ const server = createServer((req, res) => {
         req.method === "GET"
       ) {
         getUserByIdHandler(req, res);
+      } else if (req.url === "/api/users" && req.method === "POST") {
+        createUserHandler(req, res);
       } else {
         notFoundHandler(req, res);
       }
